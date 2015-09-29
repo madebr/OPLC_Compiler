@@ -1,0 +1,19 @@
+# depslib dependency file v1.0
+1443534961 source:/home/thiagoralves/Documents/OPLC_Compiler/OPLC_Compiler/main.cpp
+	<iostream>
+	<string.h>
+	<stdlib.h>
+	"oplc_compiler.h"
+
+1443535383 /home/thiagoralves/Documents/OPLC_Compiler/OPLC_Compiler/oplc_compiler.h
+
+1443478635 source:/home/thiagoralves/Documents/OPLC_Compiler/OPLC_Compiler/iolist.cpp
+	"oplc_compiler.h"
+
+1443478457 source:/home/thiagoralves/Documents/OPLC_Compiler/OPLC_Compiler/loadsave.cpp
+	"oplc_compiler.h"
+
+1443534848 source:/home/thiagoralves/Documents/OPLC_Compiler/OPLC_Compiler/miscutil.cpp
+	<iostream>
+	"oplc_compiler.h"
+

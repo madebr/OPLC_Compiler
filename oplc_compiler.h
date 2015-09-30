@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 //WinApi typedefs
 #ifndef DWORD
 #define WINAPI
@@ -353,6 +355,26 @@ static void CompileProgram(BOOL compileAs);
 
 // miscutil.cpp
 void Error(char *str);
+void CheckHeap(char *file, int line);
+void *CheckMalloc(size_t n);
+void CheckFree(void *p);
+void dbp(char *str, ...);
+// memory debugging, because I often get careless; ok() will check that the
+// heap used for all the program storage is not yet corrupt, and oops() if
+// it is
+#define ok() CheckHeap(__FILE__, __LINE__)
+/*
+#define oops() { \
+        dbp("bad at %d %s\n", __LINE__, __FILE__); \
+        Error("Internal error at line %d file '%s'\n", __LINE__, __FILE__); \
+        exit(1); \
+    }
+*/
+#define oops() { \
+        dbp("bad at %d %s\n", __LINE__, __FILE__); \
+        Error("Internal error"); \
+        exit(1); \
+    }
 
 // loadsave.cpp
 BOOL LoadProjectFromFile(char *filename);
@@ -360,4 +382,23 @@ BOOL LoadProjectFromFile(char *filename);
 // iolist.cpp
 int GenerateIoList(int prevSel);
 
+//circuit.cpp
+void FreeCircuit(int which, void *any);
+void FreeEntireProgram(void);
 
+//schematic.cpp
+void ForgetEverything(void);
+void ForgetFromGrid(void *p);
+#define DISPLAY_MATRIX_X_SIZE 16
+#define DISPLAY_MATRIX_Y_SIZE 512
+extern ElemLeaf *DisplayMatrix[DISPLAY_MATRIX_X_SIZE][DISPLAY_MATRIX_Y_SIZE];
+extern int DisplayMatrixWhich[DISPLAY_MATRIX_X_SIZE][DISPLAY_MATRIX_Y_SIZE];
+extern ElemLeaf DisplayMatrixFiller;
+#define PADDING_IN_DISPLAY_MATRIX (&DisplayMatrixFiller)
+#define VALID_LEAF(x) ((x) != NULL && (x) != PADDING_IN_DISPLAY_MATRIX)
+extern ElemLeaf *Selected;
+extern int SelectedWhich;
+
+extern BOOL CanInsertEnd;
+extern BOOL CanInsertOther;
+extern BOOL CanInsertComment;

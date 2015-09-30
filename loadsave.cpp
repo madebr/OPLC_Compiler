@@ -4,6 +4,8 @@ using namespace std;
 
 BOOL LoadProjectFromFile(char *filename)
 {
+	FreeEntireProgram();
+
 	//dummy function
 	return true;
 }

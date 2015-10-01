@@ -44,14 +44,18 @@ void ForgetEverything(void)
 void ForgetFromGrid(void *p)
 {
     int i, j;
-    for(i = 0; i < DISPLAY_MATRIX_X_SIZE; i++) {
-        for(j = 0; j < DISPLAY_MATRIX_Y_SIZE; j++) {
-            if(DisplayMatrix[i][j] == p) {
+    for(i = 0; i < DISPLAY_MATRIX_X_SIZE; i++)
+    {
+        for(j = 0; j < DISPLAY_MATRIX_Y_SIZE; j++)
+        {
+            if(DisplayMatrix[i][j] == p)
+            {
                 DisplayMatrix[i][j] = NULL;
             }
         }
     }
-    if(Selected == p) {
+    if(Selected == p)
+    {
         Selected = NULL;
     }
 }

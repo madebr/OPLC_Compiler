@@ -32,22 +32,16 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="iolist.cpp">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
-		<Unit filename="loadsave.cpp">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
+		<Unit filename="circuit.cpp" />
+		<Unit filename="iolist.cpp" />
+		<Unit filename="loadsave.cpp" />
 		<Unit filename="main.cpp" />
-		<Unit filename="miscutil.cpp">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
-		<Unit filename="oplc_compiler.cpp">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
+		<Unit filename="mcutable.h" />
+		<Unit filename="miscutil.cpp" />
 		<Unit filename="oplc_compiler.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="schematic.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />

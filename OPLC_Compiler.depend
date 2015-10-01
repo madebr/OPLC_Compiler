@@ -17,32 +17,43 @@
 	<iostream>
 	"oplc_compiler.h"
 
-1443653054 source:/home/thiagoralves/Projects/OpenPLC/OPLC_Compiler/main.cpp
+1443723656 source:/home/thiagoralves/Projects/OpenPLC/OPLC_Compiler/main.cpp
 	<iostream>
 	<string.h>
 	<stdlib.h>
 	"oplc_compiler.h"
+	"mcutable.h"
 
-1443653055 /home/thiagoralves/Projects/OpenPLC/OPLC_Compiler/oplc_compiler.h
+1443723110 /home/thiagoralves/Projects/OpenPLC/OPLC_Compiler/oplc_compiler.h
 	<stdlib.h>
+	<stdio.h>
 
-1443651885 source:/home/thiagoralves/Projects/OpenPLC/OPLC_Compiler/circuit.cpp
+1443723110 source:/home/thiagoralves/Projects/OpenPLC/OPLC_Compiler/circuit.cpp
 	<stddef.h>
 	<stdlib.h>
 	"oplc_compiler.h"
 
-1443478635 source:/home/thiagoralves/Projects/OpenPLC/OPLC_Compiler/iolist.cpp
+1443721674 source:/home/thiagoralves/Projects/OpenPLC/OPLC_Compiler/iolist.cpp
+	<string.h>
 	"oplc_compiler.h"
 
-1443651721 source:/home/thiagoralves/Projects/OpenPLC/OPLC_Compiler/miscutil.cpp
+1443720983 source:/home/thiagoralves/Projects/OpenPLC/OPLC_Compiler/miscutil.cpp
 	<iostream>
+	<stdio.h>
+	<stdarg.h>
+	<string.h>
 	"oplc_compiler.h"
 
-1443651784 source:/home/thiagoralves/Projects/OpenPLC/OPLC_Compiler/schematic.cpp
+1443721231 source:/home/thiagoralves/Projects/OpenPLC/OPLC_Compiler/schematic.cpp
 	<stddef.h>
 	<string.h>
 	"oplc_compiler.h"
 
-1443650172 source:/home/thiagoralves/Projects/OpenPLC/OPLC_Compiler/loadsave.cpp
+1443723119 source:/home/thiagoralves/Projects/OpenPLC/OPLC_Compiler/loadsave.cpp
+	<stdio.h>
+	<string.h>
+	<ctype.h>
 	"oplc_compiler.h"
+
+1443723656 /home/thiagoralves/Projects/OpenPLC/OPLC_Compiler/mcutable.h
 

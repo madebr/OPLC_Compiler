@@ -5,6 +5,49 @@ using namespace std;
 
 #include "oplc_compiler.h"
 
+//-----------------------------------------------------------------------------
+// Convenience routines for allocating frequently-used data structures.
+//-----------------------------------------------------------------------------
+ElemLeaf *AllocLeaf(void)
+{
+    return (ElemLeaf *)CheckMalloc(sizeof(ElemLeaf));
+}
+ElemSubcktSeries *AllocSubcktSeries(void)
+{
+    return (ElemSubcktSeries *)CheckMalloc(sizeof(ElemSubcktSeries));
+}
+ElemSubcktParallel *AllocSubcktParallel(void)
+{
+    return (ElemSubcktParallel *)CheckMalloc(sizeof(ElemSubcktParallel));
+}
+
+//-----------------------------------------------------------------------------
+// Allocate a new `empty' rung, with only a single relay coil at the end. All
+// the UI code assumes that rungs always have a coil in them, so it would
+// add a lot of nasty special cases to create rungs totally empty.
+//-----------------------------------------------------------------------------
+static ElemSubcktSeries *AllocEmptyRung(void)
+{
+    ElemSubcktSeries *s = AllocSubcktSeries();
+    s->count = 1;
+    s->contents[0].which = ELEM_PLACEHOLDER;
+    ElemLeaf *l = AllocLeaf();
+    s->contents[0].d.leaf = l;
+
+    return s;
+}
+
+//-----------------------------------------------------------------------------
+// Start a new project. Give them one rung, with a coil (that they can
+// never delete) and nothing else.
+//-----------------------------------------------------------------------------
+void NewProgram(void)
+{
+    FreeEntireProgram();
+
+    Prog.numRungs = 1;
+    Prog.rungs[0] = AllocEmptyRung();
+}
 
 //-----------------------------------------------------------------------------
 // Free a circuit and all of its subcircuits. Calls self recursively to do
@@ -13,25 +56,32 @@ using namespace std;
 void FreeCircuit(int which, void *any)
 {
     ok();
-    switch(which) {
-        case ELEM_SERIES_SUBCKT: {
+    switch(which)
+    {
+        case ELEM_SERIES_SUBCKT:
+        {
             ElemSubcktSeries *s = (ElemSubcktSeries *)any;
             int i;
-            for(i = 0; i < s->count; i++) {
+            for(i = 0; i < s->count; i++)
+            {
                 FreeCircuit(s->contents[i].which, s->contents[i].d.any);
             }
             CheckFree(s);
             break;
         }
-        case ELEM_PARALLEL_SUBCKT: {
+
+        case ELEM_PARALLEL_SUBCKT:
+        {
             ElemSubcktParallel *p = (ElemSubcktParallel *)any;
             int i;
-            for(i = 0; i < p->count; i++) {
+            for(i = 0; i < p->count; i++)
+            {
                 FreeCircuit(p->contents[i].which, p->contents[i].d.any);
             }
             CheckFree(p);
             break;
         }
+
         CASE_LEAF
             ForgetFromGrid(any);
             CheckFree(any);
@@ -52,7 +102,8 @@ void FreeEntireProgram(void)
     ForgetEverything();
 
     int i;
-    for(i = 0; i < Prog.numRungs; i++) {
+    for(i = 0; i < Prog.numRungs; i++)
+    {
         FreeCircuit(ELEM_SERIES_SUBCKT, Prog.rungs[i]);
     }
     Prog.numRungs = 0;

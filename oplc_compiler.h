@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 
 //WinApi typedefs
 #ifndef DWORD
@@ -354,7 +355,7 @@ extern McuIoInfo SupportedMcus[NUM_SUPPORTED_MCUS];
 static void CompileProgram(BOOL compileAs);
 
 // miscutil.cpp
-void Error(char *str);
+void Error(char *str, ...);
 void CheckHeap(char *file, int line);
 void *CheckMalloc(size_t n);
 void CheckFree(void *p);
@@ -363,16 +364,9 @@ void dbp(char *str, ...);
 // heap used for all the program storage is not yet corrupt, and oops() if
 // it is
 #define ok() CheckHeap(__FILE__, __LINE__)
-/*
 #define oops() { \
         dbp("bad at %d %s\n", __LINE__, __FILE__); \
         Error("Internal error at line %d file '%s'\n", __LINE__, __FILE__); \
-        exit(1); \
-    }
-*/
-#define oops() { \
-        dbp("bad at %d %s\n", __LINE__, __FILE__); \
-        Error("Internal error"); \
         exit(1); \
     }
 
@@ -381,10 +375,15 @@ BOOL LoadProjectFromFile(char *filename);
 
 // iolist.cpp
 int GenerateIoList(int prevSel);
+BOOL LoadIoListFromFile(FILE *f);
 
 //circuit.cpp
+ElemLeaf *AllocLeaf(void);
+ElemSubcktSeries *AllocSubcktSeries(void);
+ElemSubcktParallel *AllocSubcktParallel(void);
 void FreeCircuit(int which, void *any);
 void FreeEntireProgram(void);
+void NewProgram(void);
 
 //schematic.cpp
 void ForgetEverything(void);

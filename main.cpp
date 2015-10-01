@@ -5,6 +5,7 @@ using namespace std;
 #include <stdlib.h>
 
 #include "oplc_compiler.h"
+#include "mcutable.h"
 
 char CurrentSaveFile[MAX_PATH];
 static BOOL ProgramChangedNotSaved = FALSE;
@@ -26,7 +27,7 @@ int main(int argc, char* argv[])
 
 	if(!LoadProjectFromFile(source))
 	{
-		Error("Couldn't open file");
+		Error("Couldn't open '%s'", source);
 		exit(-1);
 	}
 

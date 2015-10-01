@@ -113,3 +113,81 @@ void FreeEntireProgram(void)
     Prog.io.count = 0;
     Prog.mcu = NULL;
 }
+
+//-----------------------------------------------------------------------------
+// Returns TRUE if the subcircuit contains any of the given instruction
+// types (ELEM_....), else FALSE.
+//-----------------------------------------------------------------------------
+static BOOL ContainsWhich(int which, void *any, int seek1, int seek2, int seek3)
+{
+    switch(which)
+    {
+        case ELEM_PARALLEL_SUBCKT:
+        {
+            ElemSubcktParallel *p = (ElemSubcktParallel *)any;
+            int i;
+            for(i = 0; i < p->count; i++)
+            {
+                if(ContainsWhich(p->contents[i].which, p->contents[i].d.any, seek1, seek2, seek3))
+                {
+                    return TRUE;
+                }
+            }
+            break;
+        }
+        case ELEM_SERIES_SUBCKT:
+        {
+            ElemSubcktSeries *s = (ElemSubcktSeries *)any;
+            int i;
+            for(i = 0; i < s->count; i++)
+            {
+                if(ContainsWhich(s->contents[i].which, s->contents[i].d.any, seek1, seek2, seek3))
+                {
+                    return TRUE;
+                }
+            }
+            break;
+        }
+        default:
+            if(which == seek1 || which == seek2 || which == seek3)
+            {
+                return TRUE;
+            }
+            break;
+    }
+    return FALSE;
+}
+
+//-----------------------------------------------------------------------------
+// Are either of the UART functions (send or recv) used? Need to know this
+// to know whether we must receive their pins.
+//-----------------------------------------------------------------------------
+BOOL UartFunctionUsed(void)
+{
+    int i;
+    for(i = 0; i < Prog.numRungs; i++)
+    {
+        if(ContainsWhich(ELEM_SERIES_SUBCKT, Prog.rungs[i], ELEM_UART_RECV, ELEM_UART_SEND, ELEM_FORMATTED_STRING))
+        {
+            return TRUE;
+        }
+    }
+    return FALSE;
+}
+
+//-----------------------------------------------------------------------------
+// Is the PWM function used? Need to know this to know whether we must reserve
+// the pin.
+//-----------------------------------------------------------------------------
+BOOL PwmFunctionUsed(void)
+{
+    int i;
+    for(i = 0; i < Prog.numRungs; i++)
+    {
+        if(ContainsWhich(ELEM_SERIES_SUBCKT, Prog.rungs[i], ELEM_SET_PWM, -1, -1))
+        {
+            return TRUE;
+        }
+    }
+    return FALSE;
+}

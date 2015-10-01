@@ -16,6 +16,45 @@ char CurrentCompileFile[MAX_PATH];
 // project file.
 PlcProgram Prog;
 
+//-----------------------------------------------------------------------------
+// Compile the program to a cpp file for the target device.
+// Call the specific compile routines.
+//-----------------------------------------------------------------------------
+void CompileAnsiC(char *dummy)
+{
+	//dummy function
+}
+
+static void CompileProgram()
+{
+	//OpenPLC changes
+	Prog.mcu=&SupportedMcus[ISA_ANSIC]; //force the MCU to ANSI C code
+	Prog.mcu->whichIsa = ISA_ANSIC;
+	Prog.cycleTime = 50000; //force the cycle time to 50ms
+
+    if(!GenerateIntermediateCode()) return;
+
+    if(Prog.mcu == NULL)
+    {
+        Error("Must choose a target microcontroller before compiling.");
+        return;
+    }
+
+    if(UartFunctionUsed() && Prog.mcu->uartNeeds.rxPin == 0)
+    {
+        Error("UART function used but not supported for this micro.");
+        return;
+    }
+
+    if(PwmFunctionUsed() && Prog.mcu->pwmNeedsPin == 0)
+    {
+        Error("PWM function used but not supported for this micro.");
+        return;
+    }
+
+	CompileAnsiC(CurrentCompileFile);
+}
+
 
 int main(int argc, char* argv[])
 {
@@ -33,11 +72,6 @@ int main(int argc, char* argv[])
 
 	strcpy(CurrentCompileFile, dest);
 	GenerateIoList(-1);
-	CompileProgram(FALSE);
+	CompileProgram();
 	exit(0);
-}
-
-static void CompileProgram(BOOL compileAs)
-{
-
 }

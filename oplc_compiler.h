@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <setjmp.h>
 
 //WinApi typedefs
 #ifndef DWORD
@@ -384,6 +385,8 @@ ElemSubcktParallel *AllocSubcktParallel(void);
 void FreeCircuit(int which, void *any);
 void FreeEntireProgram(void);
 void NewProgram(void);
+BOOL UartFunctionUsed(void);
+BOOL PwmFunctionUsed(void);
 
 //schematic.cpp
 void ForgetEverything(void);
@@ -397,7 +400,23 @@ extern ElemLeaf DisplayMatrixFiller;
 #define VALID_LEAF(x) ((x) != NULL && (x) != PADDING_IN_DISPLAY_MATRIX)
 extern ElemLeaf *Selected;
 extern int SelectedWhich;
-
 extern BOOL CanInsertEnd;
 extern BOOL CanInsertOther;
 extern BOOL CanInsertComment;
+
+// compilecommon.cpp
+void AllocStart(void);
+DWORD AllocOctetRam(void);
+void AllocBitRam(DWORD *addr, int *bit);
+void MemForVariable(char *name, DWORD *addrl, DWORD *addrh);
+BYTE MuxForAdcVariable(char *name);
+void MemForSingleBit(char *name, BOOL forRead, DWORD *addr, int *bit);
+void MemCheckForErrorsPostCompile(void);
+void BuildDirectionRegisters(BYTE *isInput, BYTE *isOutput);
+void ComplainAboutBaudRateError(int divisor, double actual, double err);
+void ComplainAboutBaudRateOverflow(void);
+#define CompileError() longjmp(CompileErrorBuf, 1)
+extern jmp_buf CompileErrorBuf;
+
+//intcode.cpp
+BOOL GenerateIntermediateCode(void);

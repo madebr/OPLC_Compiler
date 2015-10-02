@@ -1,3 +1,28 @@
+//-----------------------------------------------------------------------------
+// Copyright 2015 Thiago Alves
+//
+// Based on the LDmicro software by Jonathan Westhues
+// This file is part of OPLC Compiler.
+//
+// OPLC Compiler is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// OPLC Compiler is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with OPLC Compiler.  If not, see <http://www.gnu.org/licenses/>.
+//------
+//
+// Routines to maintain the processor I/O list, to build them from file and
+// append them on the PlcProgram data structure.
+// Thiago Alves, Oct 2015
+//-----------------------------------------------------------------------------
+
 using namespace std;
 
 #include <stdlib.h>
@@ -17,7 +42,7 @@ static int IoSeenPreviouslyCount;
 
 
 //-----------------------------------------------------------------------------
-// Move an I/O pin into the `seen previously' list. This means that if the
+// Move an I/O pin into the 'seen previously' list. This means that if the
 // user creates input Xasd, assigns it a pin, deletes, and then recreates it,
 // then it will come back with the correct pin assigned.
 //-----------------------------------------------------------------------------

@@ -1,8 +1,35 @@
+//-----------------------------------------------------------------------------
+// Copyright 2015 Thiago Alves
+//
+// Based on the LDmicro software by Jonathan Westhues
+// This file is part of OPLC Compiler.
+//
+// OPLC Compiler is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// OPLC Compiler is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with OPLC Compiler.  If not, see <http://www.gnu.org/licenses/>.
+//------
+//
+// Constants, structures, declarations etc. for the ANSI C ladder logic compiler
+// Contains also other declarations inherited from LDmicro
+// Thiago Alves, Oct 2015
+//-----------------------------------------------------------------------------
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <setjmp.h>
 
-//WinApi typedefs
+//-----------------------------------------------
+// Win32 API typedefs. This makes the code compatible with other
+// platforms
 #ifndef DWORD
 #define WINAPI
 typedef unsigned long DWORD;
@@ -420,3 +447,6 @@ extern jmp_buf CompileErrorBuf;
 
 //intcode.cpp
 BOOL GenerateIntermediateCode(void);
+
+//ansic.cpp
+void CompileAnsiC(char *outFile);

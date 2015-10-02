@@ -1,4 +1,6 @@
 //-----------------------------------------------------------------------------
+// ORIGINAL LDMICRO CODE WRITTEN BY JONATHAN WESTHUES
+//-----------------------------------------------------------------------------
 // Copyright 2007 Jonathan Westhues
 //
 // This file is part of LDmicro.

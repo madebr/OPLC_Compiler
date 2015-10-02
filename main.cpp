@@ -1,3 +1,31 @@
+//-----------------------------------------------------------------------------
+// Copyright 2015 Thiago Alves
+//
+// Based on the LDmicro software by Jonathan Westhues
+// This file is part of OPLC Compiler.
+//
+// OPLC Compiler is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// OPLC Compiler is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with OPLC Compiler.  If not, see <http://www.gnu.org/licenses/>.
+//------
+//
+// A ladder logic compiler to ANSI C code. User draws a ladder diagram
+// with an appropriately constrained 'schematic editor' (e.g. LDmicro).
+// This program will generate ANSI C code that performs the logical
+// operations described in the ladder diagram. This file contains the
+// program entry point.
+// Thiago Alves, Oct 2015
+//-----------------------------------------------------------------------------
+
 using namespace std;
 
 #include <iostream>
@@ -16,14 +44,6 @@ char CurrentCompileFile[MAX_PATH];
 // project file.
 PlcProgram Prog;
 
-//-----------------------------------------------------------------------------
-// Compile the program to a cpp file for the target device.
-// Call the specific compile routines.
-//-----------------------------------------------------------------------------
-void CompileAnsiC(char *dummy)
-{
-	//dummy function
-}
 
 static void CompileProgram()
 {
@@ -58,20 +78,48 @@ static void CompileProgram()
 
 int main(int argc, char* argv[])
 {
+	cout <<
+"================================================================\r\n\
+OPLC Compiler v0.1a\r\n\
+Copyright (C) 2015  Thiago Alves\r\n\
+Homepage: www.openplcproject.com\r\n\
+\r\n\
+This program is distributed in the hope that it will be useful,\r\n\
+but WITHOUT ANY WARRANTY; without even the implied warranty of\r\n\
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\r\n\
+GNU General Public License v3 for more details.\r\n\
+================================================================" << endl << endl;
+
+
 	char *err = "Bad command line arguments: run 'oplc_compiler src.ld dest.cpp'";
 	if (argc < 3) { Error(err); exit(-1); }
 
 	char *source = argv[1];
 	char *dest = argv[2];
 
+	cout << "Reading file \"" << source << "\"...";
+
 	if(!LoadProjectFromFile(source))
 	{
+		cout << endl;
 		Error("Couldn't open '%s'", source);
 		exit(-1);
 	}
-
+	cout << "DONE!" << endl;
 	strcpy(CurrentCompileFile, dest);
+
+	cout << "Generating IO List...";
 	GenerateIoList(-1);
+	cout << "DONE!" << endl;
+
+	cout << "Compiling ladder program to ANSI C...";
 	CompileProgram();
+	cout << "DONE!" << endl << endl;
+
+	cout <<
+"Compile successful! Wrote C source code to \"" << dest << "\".\r\n\r\n\
+This is not a complete C program. You have to provide the runtime\r\n\
+and all the I/O routines. See the comments in the source code for\r\n\
+information about how to do this." << endl << endl;
 	exit(0);
 }

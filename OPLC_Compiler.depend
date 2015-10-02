@@ -17,14 +17,14 @@
 	<iostream>
 	"oplc_compiler.h"
 
-1443723656 source:/home/thiagoralves/Projects/OpenPLC/OPLC_Compiler/main.cpp
+1443742926 source:/home/thiagoralves/Projects/OpenPLC/OPLC_Compiler/main.cpp
 	<iostream>
 	<string.h>
 	<stdlib.h>
 	"oplc_compiler.h"
 	"mcutable.h"
 
-1443742926 /home/thiagoralves/Projects/OpenPLC/OPLC_Compiler/oplc_compiler.h
+1443801202 /home/thiagoralves/Projects/OpenPLC/OPLC_Compiler/oplc_compiler.h
 	<stdlib.h>
 	<stdio.h>
 	<setjmp.h>
@@ -76,4 +76,12 @@
 	"intcode.h"
 
 1443740288 /home/thiagoralves/Projects/OpenPLC/OPLC_Compiler/intcode.h
+
+1443803133 source:/home/thiagoralves/Projects/OpenPLC/OPLC_Compiler/ansic.cpp
+	<string.h>
+	<stdio.h>
+	<setjmp.h>
+	<stdlib.h>
+	"oplc_compiler.h"
+	"intcode.h"
 

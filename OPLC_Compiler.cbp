@@ -32,7 +32,11 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="ansic.cpp" />
 		<Unit filename="circuit.cpp" />
+		<Unit filename="compilecommon.cpp" />
+		<Unit filename="intcode.cpp" />
+		<Unit filename="intcode.h" />
 		<Unit filename="iolist.cpp" />
 		<Unit filename="loadsave.cpp" />
 		<Unit filename="main.cpp" />

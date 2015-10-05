@@ -1,4 +1,4 @@
-# OPLC_Compiler
+# OPLC Compiler
 Command line ladder compiler for the OpenPLC. 
 
 This program is a ladder logic compiler to ANSI C code. The user draws 
@@ -9,7 +9,7 @@ operations described in the ladder diagram.
 The idea is that the generated .cpp file can be used to compile a program
 to any embedded platform in order for it to work as a real PLC. The 
 OpenPLC Project aims at creating this layer from the .cpp to the working
-program to diverses platforms, such as Arduino, Raspberry Pi and ESP8266.
+program to diverse platforms, such as Arduino, Raspberry Pi and ESP8266.
 
 Built using Code Blocks on a Linux machine. Just open the Code Blocks 
 Project file and you will be fine. I tryed compiling it on Visual C++ 

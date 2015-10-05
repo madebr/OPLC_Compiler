@@ -91,11 +91,23 @@ GNU General Public License v3 for more details.\r\n\
 ================================================================" << endl << endl;
 
 
-	char *err = "Bad command line arguments: run 'oplc_compiler src.ld dest.cpp'";
-	if (argc < 3) { Error(err); exit(-1); }
+	char *err = "Bad command line arguments: run 'oplc_compiler src.ld [dest.cpp]'\r\n                                                           ^\r\n                                                       Optional\r\n";
+	char *source, *dest;
+	if (argc < 2) { Error(err); exit(-1); }
 
-	char *source = argv[1];
-	char *dest = argv[2];
+	//Define source and destination according to the number of arguments
+	source = new char[sizeof(argv[1])];
+	strcpy(source, argv[1]);
+	if (argc == 2)
+	{
+		dest = new char[12];
+		strcpy(dest, "ladder.cpp");
+	}
+	else if (argc > 2)
+	{
+		dest = new char[sizeof(argv[2])];
+		strcpy(dest, argv[2]);
+	}
 
 	cout << "Reading file \"" << source << "\"...";
 

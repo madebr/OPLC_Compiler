@@ -98,13 +98,11 @@ GNU General Public License v3 for more details.\r\n\
 	//Define source and destination according to the number of arguments
 	source = new char[sizeof(argv[1])];
 	strcpy(source, argv[1]);
-	if (argc == 2)
+	dest = new char[12];
+	strcpy(dest, "ladder.cpp");
+	if (argc > 2)
 	{
-		dest = new char[12];
-		strcpy(dest, "ladder.cpp");
-	}
-	else if (argc > 2)
-	{
+		free(dest);
 		dest = new char[sizeof(argv[2])];
 		strcpy(dest, argv[2]);
 	}

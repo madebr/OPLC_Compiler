@@ -96,7 +96,7 @@ GNU General Public License v3 for more details.\r\n\
 	if (argc < 2) { Error(err); exit(-1); }
 
 	//Define source and destination according to the number of arguments
-	source = new char[sizeof(argv[1])];
+	source = new char[1000]; //Windows couldn't handle the size of argv[1] with drag and drop properly
 	strcpy(source, argv[1]);
 	dest = new char[12];
 	strcpy(dest, "ladder.cpp");

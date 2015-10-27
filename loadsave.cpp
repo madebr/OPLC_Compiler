@@ -312,7 +312,7 @@ static ElemSubcktParallel *LoadParallelFromFile(FILE *f)
 
     for(;;)
     {
-        if(!fgets(line, sizeof(line), f)) return NULL;
+        if(!fgetsNoCR(line, sizeof(line), f)) return NULL;
         char *s = line;
         while(isspace(*s)) s++;
 
@@ -359,7 +359,7 @@ static ElemSubcktSeries *LoadSeriesFromFile(FILE *f)
 
     for(;;)
     {
-        if(!fgets(line, sizeof(line), f)) return NULL;
+        if(!fgetsNoCR(line, sizeof(line), f)) return NULL;
         char *s = line;
         while(isspace(*s)) s++;
 
@@ -391,6 +391,28 @@ static ElemSubcktSeries *LoadSeriesFromFile(FILE *f)
     }
 }
 
+//-----------------------------------------------------------------------------
+// Corrects the end of line. If it reads with \r\n, it will remove the \r
+// and keep the \n
+//-----------------------------------------------------------------------------
+char * fgetsNoCR(char *buffer, int size, FILE * stream)
+{
+	char *returnObject = fgets(buffer, size, stream);
+	if (returnObject)
+	{
+		for (int i = 0; i < size; i++)
+		{
+			if (buffer[i] == '\r')
+			{
+				buffer[i] = '\n';
+				buffer[i + 1] = '\0';
+			}
+		}
+	}
+
+	return returnObject;
+}
+
 
 //-----------------------------------------------------------------------------
 // Load a project from a saved project description files. This describes the
@@ -409,7 +431,7 @@ BOOL LoadProjectFromFile(char *filename)
 	char line[512];
     int crystal, cycle, baud;
 
-    while(fgets(line, sizeof(line), f))
+    while(fgetsNoCR(line, sizeof(line), f))
     {
         if(strcmp(line, "IO LIST\n")==0)
         {
@@ -465,7 +487,7 @@ BOOL LoadProjectFromFile(char *filename)
     int rung;
     for(rung = 0;;)
     {
-        if(!fgets(line, sizeof(line), f)) break;
+        if(!fgetsNoCR(line, sizeof(line), f)) break;
         if(strcmp(line, "RUNG\n")!=0) goto failed;
 
         Prog.rungs[rung] = LoadSeriesFromFile(f);

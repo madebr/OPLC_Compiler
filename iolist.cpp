@@ -351,7 +351,7 @@ BOOL LoadIoListFromFile(FILE *f)
     char line[80];
     char name[MAX_NAME_LEN];
     int pin;
-    while(fgets(line, sizeof(line), f))
+    while(fgetsNoCR(line, sizeof(line), f))
     {
         if(strcmp(line, "END\n")==0)
         {

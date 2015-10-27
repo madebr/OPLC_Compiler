@@ -399,6 +399,7 @@ void dbp(char *str, ...);
     }
 
 // loadsave.cpp
+char * fgetsNoCR(char *buffer, int size, FILE * stream);
 BOOL LoadProjectFromFile(char *filename);
 
 // iolist.cpp

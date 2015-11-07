@@ -26,11 +26,11 @@
 // Thiago Alves, Oct 2015
 //-----------------------------------------------------------------------------
 
-using namespace std;
-
 #include <iostream>
 #include <string.h>
 #include <stdlib.h>
+
+using namespace std;
 
 #include "oplc_compiler.h"
 #include "mcutable.h"

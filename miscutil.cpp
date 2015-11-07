@@ -23,12 +23,12 @@
 // Thiago Alves, Oct 2015
 //-----------------------------------------------------------------------------
 
-using namespace std;
-
 #include <iostream>
 #include <stdio.h>
 #include <stdarg.h>
 #include <string.h>
+
+using namespace std;
 
 #include "oplc_compiler.h"
 

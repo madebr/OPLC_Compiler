@@ -24,8 +24,6 @@
 // Thiago Alves, Oct 2015
 //-----------------------------------------------------------------------------
 
-using namespace std;
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <setjmp.h>

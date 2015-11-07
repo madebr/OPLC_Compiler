@@ -23,8 +23,6 @@
 // Thiago Alves, Oct 2015
 //-----------------------------------------------------------------------------
 
-using namespace std;
-
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>

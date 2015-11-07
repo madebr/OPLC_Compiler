@@ -23,8 +23,6 @@
 // Thiago Alves, Oct 2015
 //-----------------------------------------------------------------------------
 
-using namespace std;
-
 #include <stdlib.h>
 #include <string.h>
 

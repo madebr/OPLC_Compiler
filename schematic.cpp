@@ -24,8 +24,6 @@
 // Thiago Alves, Oct 2015
 //-----------------------------------------------------------------------------
 
-using namespace std;
-
 #include <stddef.h>
 #include <string.h>
 

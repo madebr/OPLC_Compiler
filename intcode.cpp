@@ -74,7 +74,7 @@ static void GenSymFormattedString(char *dest)
 //-----------------------------------------------------------------------------
 // Compile an instruction to the program.
 //-----------------------------------------------------------------------------
-static void Op(int op, char *name1, char *name2, char *name3, SWORD lit)
+static void Op(int op, const char *name1, const char *name2, const char *name3, SWORD lit)
 {
     IntCode[IntCodeLen].op = op;
     if(name1) strcpy(IntCode[IntCodeLen].name1, name1);
@@ -83,19 +83,19 @@ static void Op(int op, char *name1, char *name2, char *name3, SWORD lit)
     IntCode[IntCodeLen].literal = lit;
     IntCodeLen++;
 }
-static void Op(int op, char *name1, char *name2, SWORD lit)
+static void Op(int op, const char *name1, const char *name2, SWORD lit)
 {
     Op(op, name1, name2, NULL, lit);
 }
-static void Op(int op, char *name1, SWORD lit)
+static void Op(int op, const char *name1, SWORD lit)
 {
     Op(op, name1, NULL, NULL, lit);
 }
-static void Op(int op, char *name1, char *name2)
+static void Op(int op, const char *name1, const char *name2)
 {
     Op(op, name1, name2, NULL, 0);
 }
-static void Op(int op, char *name1)
+static void Op(int op, const char *name1)
 {
     Op(op, name1, NULL, NULL, 0);
 }
@@ -107,7 +107,7 @@ static void Op(int op)
 //-----------------------------------------------------------------------------
 // printf-like comment function
 //-----------------------------------------------------------------------------
-void Comment(char *str, ...)
+void Comment(const char *str, ...)
 {
     va_list f;
     char buf[MAX_NAME_LEN];
@@ -121,7 +121,7 @@ void Comment(char *str, ...)
 // nodes are energized (so that it can display which branches of the circuit
 // are energized onscreen). The MCU code generators ignore this, of course.
 //-----------------------------------------------------------------------------
-static void SimState(BOOL *b, char *name)
+static void SimState(BOOL *b, const char *name)
 {
     IntCode[IntCodeLen].op = INT_SIMULATE_NODE_STATE;
     strcpy(IntCode[IntCodeLen].name1, name);
@@ -132,7 +132,7 @@ static void SimState(BOOL *b, char *name)
 //-----------------------------------------------------------------------------
 // Is an expression that could be either a variable name or a number a number?
 //-----------------------------------------------------------------------------
-static BOOL IsNumber(char *str)
+static BOOL IsNumber(const char *str)
 {
     if(*str == '-' || isdigit(*str))
     {
@@ -165,7 +165,7 @@ void CheckConstantInRange(int v)
 // Try to turn a string into a 16-bit constant, and raise an error if
 // something bad happens when we do so (e.g. out of range).
 //-----------------------------------------------------------------------------
-SWORD CheckMakeNumber(char *str)
+SWORD CheckMakeNumber(const char *str)
 {
     int val;
 
@@ -245,7 +245,7 @@ static int TenToThe(int x)
 // state is in stateInOut before calling and will be in stateInOut after
 // calling.
 //-----------------------------------------------------------------------------
-static char *VarFromExpr(char *expr, char *tempName)
+static const char *VarFromExpr(const char *expr, const char *tempName)
 {
     if(IsNumber(expr))
     {
@@ -257,7 +257,7 @@ static char *VarFromExpr(char *expr, char *tempName)
         return expr;
     }
 }
-static void IntCodeFromCircuit(int which, void *any, char *stateInOut)
+static void IntCodeFromCircuit(int which, void *any, const char *stateInOut)
 {
     ElemLeaf *l = (ElemLeaf *)any;
 
@@ -493,8 +493,8 @@ static void IntCodeFromCircuit(int which, void *any, char *stateInOut)
         case ELEM_NEQ:
         case ELEM_EQU:
         {
-            char *op1 = VarFromExpr(l->d.cmp.op1, "$scratch");
-            char *op2 = VarFromExpr(l->d.cmp.op2, "$scratch2");
+            const char *op1 = VarFromExpr(l->d.cmp.op1, "$scratch");
+            const char *op2 = VarFromExpr(l->d.cmp.op2, "$scratch2");
 
             if(which == ELEM_GRT)
             {
@@ -656,8 +656,8 @@ static void IntCodeFromCircuit(int which, void *any, char *stateInOut)
             }
             Op(INT_IF_BIT_SET, stateInOut);
 
-            char *op1 = VarFromExpr(l->d.math.op1, "$scratch");
-            char *op2 = VarFromExpr(l->d.math.op2, "$scratch2");
+            const char *op1 = VarFromExpr(l->d.math.op1, "$scratch");
+            const char *op2 = VarFromExpr(l->d.math.op2, "$scratch2");
 
             int intOp;
             if(which == ELEM_ADD)
@@ -938,7 +938,7 @@ static void IntCodeFromCircuit(int which, void *any, char *stateInOut)
             // avoid an if statement with a big body, which is the risk
             // factor for blowing up on PIC16 page boundaries.
 
-            char *seqScratch = "$scratch3";
+            const char *seqScratch = "$scratch3";
 
             Op(INT_SET_VARIABLE_TO_VARIABLE, seqScratch, seq);
 

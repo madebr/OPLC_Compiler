@@ -35,7 +35,7 @@ using namespace std;
 //-----------------------------------------------------------------------------
 // For error messages to the user; printf-like
 //-----------------------------------------------------------------------------
-void Error(char *str, ...)
+void Error(const char *str, ...)
 {
 	va_list f;
     char buf[1024];
@@ -52,7 +52,7 @@ void Error(char *str, ...)
 //-----------------------------------------------------------------------------
 // printf-like debug function
 //-----------------------------------------------------------------------------
-void dbp(char *str, ...)
+void dbp(const char *str, ...)
 {
 	va_list f;
     char buf[1024];
@@ -66,7 +66,7 @@ void dbp(char *str, ...)
 // Check the consistency of the heap on which all the PLC program stuff is
 // stored.
 //-----------------------------------------------------------------------------
-void CheckHeap(char *file, int line)
+void CheckHeap(const char *file, int line)
 {
 	//Should periodically check the heap using the HeapValidate() Win32API.
 	//For other systems, we shouldn't do anything

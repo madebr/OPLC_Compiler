@@ -91,7 +91,7 @@ GNU General Public License v3 for more details.\r\n\
 ================================================================" << endl << endl;
 
 
-	char *err = "Bad command line arguments: run 'oplc_compiler src.ld [dest.cpp]'\r\n                                                           ^\r\n                                                       Optional\r\n";
+	const char *err = "Bad command line arguments: run 'oplc_compiler src.ld [dest.cpp]'\r\n                                                           ^\r\n                                                       Optional\r\n";
 	char *source, *dest;
 	if (argc < 2) { Error(err); exit(-1); }
 

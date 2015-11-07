@@ -345,8 +345,8 @@ typedef struct McuAdcPinInfoTag {
 #define MAX_RAM_SECTIONS    5
 
 typedef struct McuIoInfoTag {
-    char            *mcuName;
-    char             portPrefix;
+    const char      *mcuName;
+    const char       portPrefix;
     DWORD            inputRegs[MAX_IO_PORTS];         // a is 0, j is 9
     DWORD            outputRegs[MAX_IO_PORTS];
     DWORD            dirRegs[MAX_IO_PORTS];
@@ -383,11 +383,11 @@ extern McuIoInfo SupportedMcus[NUM_SUPPORTED_MCUS];
 static void CompileProgram(BOOL compileAs);
 
 // miscutil.cpp
-void Error(char *str, ...);
-void CheckHeap(char *file, int line);
+void Error(const char *str, ...);
+void CheckHeap(const char *file, int line);
 void *CheckMalloc(size_t n);
 void CheckFree(void *p);
-void dbp(char *str, ...);
+void dbp(const char *str, ...);
 // memory debugging, because I often get careless; ok() will check that the
 // heap used for all the program storage is not yet corrupt, and oops() if
 // it is

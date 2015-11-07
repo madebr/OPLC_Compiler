@@ -36,7 +36,6 @@ using namespace std;
 #include "mcutable.h"
 
 char CurrentSaveFile[MAX_PATH];
-static BOOL ProgramChangedNotSaved = FALSE;
 char CurrentCompileFile[MAX_PATH];
 
 // Everything relating to the PLC's program, I/O configuration, processor

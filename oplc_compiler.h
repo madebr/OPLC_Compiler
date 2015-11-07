@@ -32,14 +32,14 @@
 // platforms
 #ifndef DWORD
 #define WINAPI
-typedef unsigned long DWORD;
-typedef short WCHAR;
+typedef unsigned int DWORD;
+typedef wchar_t WCHAR;
 typedef void * HANDLE;
 #define MAX_PATH    260
 typedef unsigned char BYTE;
 typedef unsigned short WORD;
 typedef short SWORD;
-typedef bool BOOL;
+typedef int BOOL;
 #define FALSE	0
 #define TRUE	1
 #endif
@@ -380,7 +380,6 @@ extern PlcProgram Prog;
 extern char CurrentSaveFile[MAX_PATH];
 extern char CurrentCompileFile[MAX_PATH];
 extern McuIoInfo SupportedMcus[NUM_SUPPORTED_MCUS];
-static void CompileProgram(BOOL compileAs);
 
 // miscutil.cpp
 void Error(const char *str, ...);

@@ -26,5 +26,7 @@ set(EXECUTABLENAME OPLC_Compiler)
 
 add_executable(${EXECUTABLENAME} ${SOURCES} ${HEADERS})
 
+target_compile_options(${EXECUTABLENAME} PRIVATE -Wall)
+
 add_test(NAME runprogram COMMAND ${EXECUTABLENAME} ${CMAKE_CURRENT_LIST_DIR}/tests/test.ld)
 

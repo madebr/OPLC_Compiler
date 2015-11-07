@@ -1,0 +1,14 @@
+OPLC_Compiler
+
+bin
+obj
+Debug
+Release
+
+*.obj
+*.o
+*.pdb
+*.tlog
+
+*.orig
+*.rej
